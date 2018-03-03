@@ -36,7 +36,7 @@ class KernelPLS(PLSRegression):
         return Xkernel
         
     def fit(self,X,Y):
-        z = super(KernelPLS,self).fit(X = self.convert_to_kernel(X), Y = y) 
+        z = super(KernelPLS,self).fit(X = self.convert_to_kernel(X), Y = Y) 
         return z
     def predict(self,X , copy = True ):
         z = super(KernelPLS,self).predict(X = self.convert_to_kernel_pred(X), copy = copy)
