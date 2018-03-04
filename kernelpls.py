@@ -11,12 +11,15 @@ class KernelPLS(PLSRegression):
     #this class is an extention of PLS which uses kernels . we call it kernel pls now!
     
 
-    def __init__(self ,copy=True, max_iter=500, n_components=1, scale=True, tol=1e-06,kernel = 'rbf',preprocess = True):
+    def __init__(self ,copy=True, max_iter=500, n_components=1, scale=True, tol=1e-06,kernel = 'rbf',preprocess = True, gamma =None, coef0 = 1,degree = 3,  ):
         super(KernelPLS, self).__init__(copy=copy, max_iter=max_iter, n_components=n_components, scale=scale, tol=tol)
         self.kernel = kernel
         self.preprocess = preprocess
+        self.gamma = gamma
+        self.coef0 = coef0
+        self.degree  = degree
     def convert_to_kernel(self,X0):
-        kX = ks.Nystroem(kernel=self.kernel,degree=1)
+        kX = ks.Nystroem(kernel=self.kernel,gamma = self.gamma, coef0 = self.coef0, degree = self.degree,n_components = self.n_components)
         Xkernel = kX.fit_transform(X0)
         if self.preprocess:
             Xscaler  = preprocessing.StandardScaler().fit(Xkernel)
